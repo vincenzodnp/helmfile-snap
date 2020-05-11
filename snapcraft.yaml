@@ -1,0 +1,25 @@
+name: helmfile-snap
+version: '0.115.0'
+summary: helmfile snap package
+description: |
+  Deploy Kubernetes Helm Charts.
+grade: stable
+confinement: strict
+architectures:
+  - amd64
+
+plugs:
+  network:
+
+apps:
+  helmfile:
+    command: helmfile
+
+parts:
+  helmfile:
+    plugin: nil
+    override-pull: |
+      wget https://github.com/roboll/helmfile/releases/download/v0.115.0/helmfile_linux_amd64 
+    override-build: |
+      chmod +x helmfile_linux_amd64
+      cp helmfile_linux_amd64 $SNAPCRAFT_PART_INSTALL/helmfile
